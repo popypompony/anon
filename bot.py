@@ -12,6 +12,10 @@ from aiogram.client.default import DefaultBotProperties
 bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher(storage=MemoryStorage())
 
+async def main():
+    await bot.delete_webhook(drop_pending_updates=True)  # Удаляет старый webhook
+    await dp.start_polling(bot)
+
 @dp.message()
 async def handle_message(message: Message):
     text = f"<b>Анонимное сообщение:</b>\n{message.text}"
